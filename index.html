@@ -23,9 +23,7 @@
   </script>
 
   <!-- Preload background image -->
-  <link rel="preload" as="image" href="images/years.avif">
   <link rel="preload" as="image" href="images/years.webp">
-  <link rel="preload" as="image" href="images/years.png">
 
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css">
@@ -77,26 +75,31 @@
   </div>
 
   <script>
+    // Profile data
     const profile = {
       username: "DeDougCC",
       tagline: "DeGods Community Manager",
       links: [
-        { name: "DeGods", url: "https://degods.com/u/dougcc", color: "bg-[#000000] text-[#FFFFFF]", icon: "images/degods.png" },
-        { name: "(Twitter)", url: "https://twitter.com/cc_doug", color: "bg-[#000000] text-[#FFFFFF]", icon: "images/twitter.png" },
-        //{ name: "Instagram", url: "https://instagram.com/bra1ner_com", color: "bg-[#000000] text-[#FFFFFF]", icon: "images/instagram.png" },
-        //{ name: "TikTok", url: "https://www.tiktok.com/@bra1ner.com", color: "bg-[#000000] text-[#FFFFFF]", icon: "images/tik.png" },
-        { name: "Phone Call", url: "https://calendly.com/dougcc-degods-fiwb/15mins", color: "bg-[#FAF9F6] text-[#000000]", icon: "images/contact.png" },
-        { name: "Contact Me!", url: "#", color: "bg-[#FAF9F6] text-[#000000]", icon: "images/contact1.png" }
+        { name: "DeGods", url: "https://degods.com/u/dougcc", color: "bg-black text-white", icon: "images/degods.png" },
+        { name: "Twitter", url: "https://twitter.com/cc_doug", color: "bg-black text-white", icon: "images/twitter.png" },
+        // Uncomment these if you want to use them
+        // { name: "Instagram", url: "https://instagram.com/bra1ner_com", color: "bg-black text-white", icon: "images/instagram.png" },
+        // { name: "TikTok", url: "https://www.tiktok.com/@bra1ner.com", color: "bg-black text-white", icon: "images/tik.png" },
+        { name: "Phone Call", url: "https://calendly.com/dougcc-degods-fiwb/15mins", color: "bg-[#FAF9F6] text-black", icon: "images/contact.png" },
+        { name: "Contact Me!", url: "#", color: "bg-[#FAF9F6] text-black", icon: "images/contact1.png", id: "contactLink" }
       ]
     };
 
+    // Update username and tagline
     document.getElementById("username").innerText = profile.username;
     document.getElementById("tagline").innerText = profile.tagline;
 
+    // Add links dynamically
     const container = document.getElementById("links");
     profile.links.forEach(link => {
       const a = document.createElement("a");
       a.href = link.url;
+      if(link.id) a.id = link.id; // assign id if exists
       a.target = "_blank";
       a.className = `relative flex items-center justify-center ${link.color} px-4 py-3 rounded-xl font-medium hover:opacity-90 transition`;
 
@@ -109,19 +112,19 @@
     });
 
     // Modal behavior
-    document.addEventListener("click", function (e) {
-      if (e.target.closest("a")?.textContent.includes("Contact Me!")) {
+    const contactLink = document.getElementById("contactLink");
+    if(contactLink){
+      contactLink.addEventListener("click", function(e){
         e.preventDefault();
         document.getElementById("contactModal").classList.remove("hidden");
-      }
-    });
+      });
+    }
 
     document.getElementById("closeModal").addEventListener("click", function () {
       document.getElementById("contactModal").classList.add("hidden");
     });
-  </script>
-  
-  <script>
+
+    // Preload background image
     const img = new Image();
     img.src = "images/years.webp";
     img.onload = () => document.body.classList.add("loaded");
